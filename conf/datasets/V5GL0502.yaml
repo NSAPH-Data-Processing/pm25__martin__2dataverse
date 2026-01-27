@@ -1,0 +1,26 @@
+# V5GL0502 - PM2.5 estimates at 0.05° resolution (higher resolution)
+# Source: Washington University Atmospheric Composition Analysis Group
+# https://sites.wustl.edu/acag/datasets/surface-pm2-5/
+
+V5GL0502:
+  name: "V5GL0502.HybridPM25c_0p05.NorthAmerica"
+  description: "V5.GL.05.02 Hybrid PM2.5 estimates (0.05° resolution)"
+  file_prefix: "V5GL0502.HybridPM25c_0p05.NorthAmerica"
+
+  yearly:
+    box_url: "https://wustl.app.box.com/v/ACAG-V5GL0502-GWRPM25c0p05/folder/293383209520"
+    zipname: "Annual"
+
+    dataverse:
+      server_url: "https://dataverse.harvard.edu"
+      doi: "doi:10.7910/DVN/XXXXXXX"  # TODO: Replace after creating dataset
+      api_token: null
+
+  monthly:
+    box_url: "https://wustl.app.box.com/v/ACAG-V5GL0502-GWRPM25c0p05/folder/293385030318"
+    zipname: "Monthly"
+
+    dataverse:
+      server_url: "https://dataverse.harvard.edu"
+      doi: "doi:10.7910/DVN/XXXXXXX"  # TODO: Replace after creating dataset
+      api_token: null

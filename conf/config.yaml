@@ -1,0 +1,16 @@
+defaults:
+  - _self_
+  - datasets: V5GL04
+
+# Which dataset to process
+dataset: V5GL04  # V5GL04, V5GL0502, or V6GL02
+
+# Temporal frequency: yearly or monthly
+temporal_freq: yearly
+
+# Local directory for downloaded files
+download_dir: data
+
+hydra:
+  run:
+    dir: logs/${now:%Y-%m-%d}/${now:%H-%M-%S}

@@ -1,0 +1,26 @@
+# V6GL02 - CNN-based PM2.5 estimates at 0.10° resolution
+# Source: Washington University Atmospheric Composition Analysis Group
+# https://sites.wustl.edu/acag/datasets/surface-pm2-5/
+
+V6GL02:
+  name: "V6GL02.04.CNNPM25.0p10.NA"
+  description: "V6.GL.02.04 CNN PM2.5 estimates (0.10° resolution)"
+  file_prefix: "V6GL02.04.CNNPM25.0p10.NA"
+
+  yearly:
+    box_url: "https://wustl.app.box.com/s/s7eiaxytjr9w1z7glat45cesitcemprv/folder/327763225614"
+    zipname: "Annual"
+
+    dataverse:
+      server_url: "https://dataverse.harvard.edu"
+      doi: "doi:10.7910/DVN/XXXXXXX"  # TODO: Replace after creating dataset
+      api_token: null
+
+  monthly:
+    box_url: "https://wustl.app.box.com/s/s7eiaxytjr9w1z7glat45cesitcemprv/folder/327764742544"
+    zipname: "Monthly"
+
+    dataverse:
+      server_url: "https://dataverse.harvard.edu"
+      doi: "doi:10.7910/DVN/XXXXXXX"  # TODO: Replace after creating dataset
+      api_token: null
