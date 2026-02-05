@@ -82,7 +82,9 @@ def main(cfg):
     Upload downloaded PM2.5 files to Dataverse.
     """
 
-    dataset_cfg = cfg.datasets[cfg.dataset]
+    # Auto-detect dataset name from loaded config (first key in datasets)
+    dataset_name = list(cfg.datasets.keys())[0]
+    dataset_cfg = cfg.datasets[dataset_name]
     freq_cfg = dataset_cfg[cfg.temporal_freq]
     dataverse_cfg = freq_cfg.dataverse
 
@@ -104,7 +106,7 @@ def main(cfg):
         )
 
     # Find files to upload
-    source_dir = f"{cfg.download_dir}/{cfg.dataset}/{cfg.temporal_freq}"
+    source_dir = f"{cfg.download_dir}/{dataset_name}/{cfg.temporal_freq}"
     file_pattern = f"{source_dir}/*.nc"
     files_to_upload = sorted(glob.glob(file_pattern))
 
@@ -114,9 +116,9 @@ def main(cfg):
         return
 
     # Folder structure: dataset/temporal_freq (e.g., "V5GL04/yearly")
-    directory_label = f"{cfg.dataset}/{cfg.temporal_freq}"
+    directory_label = f"{dataset_name}/{cfg.temporal_freq}"
 
-    logger.info(f"Dataset: {cfg.dataset}")
+    logger.info(f"Dataset: {dataset_name}")
     logger.info(f"Temporal frequency: {cfg.temporal_freq}")
     logger.info(f"Dataverse: {server_url}")
     logger.info(f"DOI: {doi}")

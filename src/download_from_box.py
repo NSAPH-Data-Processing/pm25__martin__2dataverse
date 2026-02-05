@@ -27,21 +27,23 @@ def main(cfg):
     https://sites.wustl.edu/acag/datasets/surface-pm2-5/
     """
 
-    dataset_cfg = cfg.datasets[cfg.dataset]
+    # Auto-detect dataset name from loaded config (first key in datasets)
+    dataset_name = list(cfg.datasets.keys())[0]
+    dataset_cfg = cfg.datasets[dataset_name]
     freq_cfg = dataset_cfg[cfg.temporal_freq]
 
     url = freq_cfg.box_url
     zipname = freq_cfg.zipname
 
     # Setup directories
-    download_dir = os.path.abspath(f"{cfg.download_dir}/{cfg.dataset}")
+    download_dir = os.path.abspath(f"{cfg.download_dir}/{dataset_name}")
     download_zip = f"{download_dir}/{zipname}.zip"
     src_dir = f"{download_dir}/{zipname}"
     dest_dir = f"{download_dir}/{cfg.temporal_freq}"
 
     os.makedirs(download_dir, exist_ok=True)
 
-    logger.info(f"Dataset: {cfg.dataset}")
+    logger.info(f"Dataset: {dataset_name}")
     logger.info(f"Temporal frequency: {cfg.temporal_freq}")
     logger.info(f"Box URL: {url}")
     logger.info(f"Download directory: {dest_dir}")
