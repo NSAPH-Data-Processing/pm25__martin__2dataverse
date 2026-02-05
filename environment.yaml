@@ -11,3 +11,4 @@ dependencies:
     - selenium==4.29.0
     - chromedriver-binary==135.0.7030.0.0
     - tqdm==4.67.1
+    - snakemake==8.1.2
