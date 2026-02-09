@@ -35,53 +35,60 @@ conda activate pm25_2dataverse
 ### 2. Configure Dataverse credentials
 
 1. Get an API token from [Harvard Dataverse](https://dataverse.harvard.edu) (Account → API Token)
-2. Create a dataset on Dataverse for each data type you'll upload
-3. Update `conf/datasets/*.yaml` with:
-   - Your dataset DOI
-   - Your API token
+2. Set the API token as an environment variable:
+   ```bash
+   export DATAVERSE_API_TOKEN="your-token-here"
+   ```
+3. Update `conf/datasets/*.yaml` with your dataset DOI
 
 ## Usage
 
-### Download from Box
+### Option 1: Run everything with Snakemake (recommended)
+
+```bash
+# Run all downloads and uploads
+snakemake --cores 1
+
+# Dry run (preview what would run)
+snakemake --cores 1 -n
+
+# Only download, no upload
+snakemake --cores 1 download_all
+```
+
+### Option 2: Run individual scripts
+
+#### Download from Box
 
 ```bash
 # Download V5GL04 yearly data (default)
 python src/download_from_box.py
 
 # Download specific dataset and frequency
-python src/download_from_box.py dataset=V6GL02 temporal_freq=monthly
+python src/download_from_box.py datasets=V6GL02 temporal_freq=monthly
 ```
 
-### Upload to Dataverse
+#### Upload to Dataverse
 
 ```bash
 # Upload downloaded files to Dataverse
 python src/upload_to_dataverse.py
 
 # Upload specific dataset
-python src/upload_to_dataverse.py dataset=V6GL02 temporal_freq=monthly
+python src/upload_to_dataverse.py datasets=V6GL02 temporal_freq=monthly
 ```
 
 ### Full workflow example
 
 ```bash
-
-
-# Download and upload V6GL02 monthly data
-python src/download_from_box.py datasets=V6GL02 dataset=V6GL02 temporal_freq=monthly
-python src/upload_to_dataverse.py datasets=V6GL02 dataset=V6GL02 temporal_freq=monthly        
-```
-
-
-python src/upload_to_dataverse.py datasets=V6GL02 temporal_freq=monthly
-python src/upload_to_dataverse.py datasets=V6GL02 temporal_freq=yearly
-
-python src/upload_to_dataverse.py datasets=V5GL0502 temporal_freq=monthly
-python src/upload_to_dataverse.py datasets=V5GL0502 temporal_freq=yearly
-
-python src/upload_to_dataverse.py datasets=V5GL04 temporal_freq=monthly
+# Download and upload V5GL04 yearly data
+python src/download_from_box.py datasets=V5GL04 temporal_freq=yearly
 python src/upload_to_dataverse.py datasets=V5GL04 temporal_freq=yearly
 
+# Download and upload V6GL02 monthly data
+python src/download_from_box.py datasets=V6GL02 temporal_freq=monthly
+python src/upload_to_dataverse.py datasets=V6GL02 temporal_freq=monthly
+```
 
 ## Configuration
 
@@ -89,13 +96,34 @@ Configuration uses [Hydra](https://hydra.cc/). Main parameters:
 
 | Parameter | Options | Description |
 |-----------|---------|-------------|
-| `dataset` | V5GL04, V5GL0502, V6GL02 | Which PM2.5 dataset |
+| `datasets` | V5GL04, V5GL0502, V6GL02 | Which PM2.5 dataset config to load |
 | `temporal_freq` | yearly, monthly | Temporal resolution |
 | `download_dir` | path | Local storage directory |
 
 Dataset configs are in `conf/datasets/`. Each contains:
 - Box URLs for download
-- Dataverse DOI and credentials for upload
+- Dataverse DOI for upload
+
+API token can be set via:
+- Environment variable `DATAVERSE_API_TOKEN` (recommended)
+- Or in `conf/datasets/*.yaml` under `api_token`
+
+## Dataverse Folder Structure
+
+Uploads are organized into folders:
+
+```
+Dataverse Dataset
+├── V5GL04/
+│   ├── yearly/
+│   └── monthly/
+├── V5GL0502/
+│   ├── yearly/
+│   └── monthly/
+└── V6GL02/
+    ├── yearly/
+    └── monthly/
+```
 
 ## Directory Structure
 
@@ -110,6 +138,7 @@ pm25__martin__2dataverse/
 │       ├── V5GL04.yaml
 │       ├── V5GL0502.yaml
 │       └── V6GL02.yaml
+├── Snakefile                   # Automated workflow
 ├── data/                       # Downloaded files (gitignored)
 ├── environment.yaml
 └── README.md
