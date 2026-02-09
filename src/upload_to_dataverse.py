@@ -88,10 +88,11 @@ def main(cfg):
     freq_cfg = dataset_cfg[cfg.temporal_freq]
     dataverse_cfg = freq_cfg.dataverse
 
-    # Validate configuration
-    server_url = dataverse_cfg.server_url
-    doi = dataverse_cfg.doi
-    api_token = dataverse_cfg.api_token
+    # Validate configuration                                                                                                               
+    server_url = dataverse_cfg.server_url                                                                                                  
+    doi = dataverse_cfg.doi                                                                                                                
+    # Check environment variable first, then fall back to config                                                                           
+    api_token = os.environ.get("DATAVERSE_API_TOKEN") or dataverse_cfg.api_token
 
     if not api_token:
         raise ValueError(

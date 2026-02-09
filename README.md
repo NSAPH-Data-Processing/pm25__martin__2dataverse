@@ -65,14 +65,23 @@ python src/upload_to_dataverse.py dataset=V6GL02 temporal_freq=monthly
 ### Full workflow example
 
 ```bash
-# Download and upload V5GL04 yearly data
-python src/download_from_box.py dataset=V5GL04 temporal_freq=yearly
-python src/upload_to_dataverse.py dataset=V5GL04 temporal_freq=yearly
+
 
 # Download and upload V6GL02 monthly data
-python src/download_from_box.py dataset=V6GL02 temporal_freq=monthly
-python src/upload_to_dataverse.py dataset=V6GL02 temporal_freq=monthly
+python src/download_from_box.py datasets=V6GL02 dataset=V6GL02 temporal_freq=monthly
+python src/upload_to_dataverse.py datasets=V6GL02 dataset=V6GL02 temporal_freq=monthly        
 ```
+
+
+python src/upload_to_dataverse.py datasets=V6GL02 temporal_freq=monthly
+python src/upload_to_dataverse.py datasets=V6GL02 temporal_freq=yearly
+
+python src/upload_to_dataverse.py datasets=V5GL0502 temporal_freq=monthly
+python src/upload_to_dataverse.py datasets=V5GL0502 temporal_freq=yearly
+
+python src/upload_to_dataverse.py datasets=V5GL04 temporal_freq=monthly
+python src/upload_to_dataverse.py datasets=V5GL04 temporal_freq=yearly
+
 
 ## Configuration
 

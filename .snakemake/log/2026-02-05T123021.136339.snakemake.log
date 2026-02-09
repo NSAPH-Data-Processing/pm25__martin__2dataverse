@@ -1,0 +1,136 @@
+Building DAG of jobs...
+Retrieving input from storage.
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count
+--------  -------
+all             1
+download        4
+upload          6
+total          11
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:30:21 2026]
+localrule upload:
+    input: data/V5GL04/monthly/.downloaded
+    output: data/V5GL04/monthly/.uploaded
+    log: logs/upload_V5GL04_monthly.log
+    jobid: 3
+    reason: Missing output files: data/V5GL04/monthly/.uploaded
+    wildcards: dataset=V5GL04, temporal=monthly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:49:48 2026]
+Finished job 3.
+1 of 11 steps (9%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:49:48 2026]
+localrule download:
+    output: data/V6GL02/monthly/.downloaded
+    log: logs/download_V6GL02_monthly.log
+    jobid: 12
+    reason: Missing output files: data/V6GL02/monthly/.downloaded
+    wildcards: dataset=V6GL02, temporal=monthly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:51:57 2026]
+Finished job 12.
+2 of 11 steps (18%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:51:57 2026]
+localrule upload:
+    input: data/V6GL02/monthly/.downloaded
+    output: data/V6GL02/monthly/.uploaded
+    log: logs/upload_V6GL02_monthly.log
+    jobid: 11
+    reason: Missing output files: data/V6GL02/monthly/.uploaded; Input files updated by another job: data/V6GL02/monthly/.downloaded
+    wildcards: dataset=V6GL02, temporal=monthly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:52:00 2026]
+Finished job 11.
+3 of 11 steps (27%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:52:00 2026]
+localrule download:
+    output: data/V5GL0502/yearly/.downloaded
+    log: logs/download_V5GL0502_yearly.log
+    jobid: 6
+    reason: Missing output files: data/V5GL0502/yearly/.downloaded
+    wildcards: dataset=V5GL0502, temporal=yearly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:52:16 2026]
+Finished job 6.
+4 of 11 steps (36%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:52:16 2026]
+localrule upload:
+    input: data/V5GL04/yearly/.downloaded
+    output: data/V5GL04/yearly/.uploaded
+    log: logs/upload_V5GL04_yearly.log
+    jobid: 1
+    reason: Missing output files: data/V5GL04/yearly/.uploaded
+    wildcards: dataset=V5GL04, temporal=yearly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:54:24 2026]
+Finished job 1.
+5 of 11 steps (45%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:54:24 2026]
+localrule upload:
+    input: data/V5GL0502/yearly/.downloaded
+    output: data/V5GL0502/yearly/.uploaded
+    log: logs/upload_V5GL0502_yearly.log
+    jobid: 5
+    reason: Missing output files: data/V5GL0502/yearly/.uploaded; Input files updated by another job: data/V5GL0502/yearly/.downloaded
+    wildcards: dataset=V5GL0502, temporal=yearly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:56:43 2026]
+Finished job 5.
+6 of 11 steps (55%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:56:43 2026]
+localrule download:
+    output: data/V5GL0502/monthly/.downloaded
+    log: logs/download_V5GL0502_monthly.log
+    jobid: 8
+    reason: Missing output files: data/V5GL0502/monthly/.downloaded
+    wildcards: dataset=V5GL0502, temporal=monthly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:58:43 2026]
+Error in rule download:
+    jobid: 8
+    output: data/V5GL0502/monthly/.downloaded
+    log: logs/download_V5GL0502_monthly.log (check log file(s) for error details)
+    shell:
+        
+        python src/download_from_box.py datasets=V5GL0502 temporal_freq=monthly 2>&1 | tee logs/download_V5GL0502_monthly.log
+        touch data/V5GL0502/monthly/.downloaded
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2026-02-05T123021.136339.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

@@ -1,0 +1,74 @@
+Building DAG of jobs...
+Retrieving input from storage.
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count
+--------  -------
+all             1
+download        6
+upload          6
+total          13
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:24:49 2026]
+localrule download:
+    output: data/V5GL04/yearly/.downloaded
+    log: logs/download_V5GL04_yearly.log
+    jobid: 2
+    reason: Missing output files: data/V5GL04/yearly/.downloaded
+    wildcards: dataset=V5GL04, temporal=yearly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:25:08 2026]
+Finished job 2.
+1 of 13 steps (8%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:25:08 2026]
+localrule download:
+    output: data/V5GL04/monthly/.downloaded
+    log: logs/download_V5GL04_monthly.log
+    jobid: 4
+    reason: Missing output files: data/V5GL04/monthly/.downloaded
+    wildcards: dataset=V5GL04, temporal=monthly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:26:36 2026]
+Finished job 4.
+2 of 13 steps (15%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb  5 12:26:36 2026]
+localrule upload:
+    input: data/V5GL04/monthly/.downloaded
+    output: data/V5GL04/monthly/.uploaded
+    log: logs/upload_V5GL04_monthly.log
+    jobid: 3
+    reason: Missing output files: data/V5GL04/monthly/.uploaded; Input files updated by another job: data/V5GL04/monthly/.downloaded
+    wildcards: dataset=V5GL04, temporal=monthly
+    resources: tmpdir=/tmp
+
+[Thu Feb  5 12:26:37 2026]
+Error in rule upload:
+    jobid: 3
+    input: data/V5GL04/monthly/.downloaded
+    output: data/V5GL04/monthly/.uploaded
+    log: logs/upload_V5GL04_monthly.log (check log file(s) for error details)
+    shell:
+        
+        python src/upload_to_dataverse.py datasets=V5GL04 temporal_freq=monthly 2>&1 | tee logs/upload_V5GL04_monthly.log
+        touch data/V5GL04/monthly/.uploaded
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2026-02-05T122449.710573.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
