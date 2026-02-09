@@ -4,6 +4,9 @@ data/
 # Hydra logs
 logs/
 
+# Snakemake
+.snakemake/
+
 # Python
 __pycache__/
 *.py[cod]
